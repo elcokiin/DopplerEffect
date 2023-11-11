@@ -9,8 +9,6 @@ import Home from './pages/Home'
 import Sound from './pages/Sound'
 import Light from './pages/Light'
 
-import './App.css'
-
 function App() {
 
   const router = createBrowserRouter([

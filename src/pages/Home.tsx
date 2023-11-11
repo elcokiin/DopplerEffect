@@ -1,8 +1,13 @@
+import Slide from "../components/Slideshow"
+import Nav from "../components/Nav"
 
 function Home() {
     return (
         <div>
-            <h1>Home</h1>
+            <Slide />
+            <footer className="footer">
+                <Nav />
+            </footer>
         </div>
     )
 }
