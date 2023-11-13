@@ -28,7 +28,7 @@ function Slideshow() {
 
     const settings = {
         duration: 5000,
-        transitionDuration: 255,
+        transitionDuration: 800,
         infinite: false,
         indicators: false,
         arrows: true,
