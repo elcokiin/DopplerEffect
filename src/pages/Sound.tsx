@@ -6,41 +6,53 @@ import inputs from "../data/inputs"
 
 import { calcEmittedFrecuency, calcObservedFrecuency, calReceiverSpeed, calcEmitterSpeed } from "../utils"
 
-const oscillatorValues = ["sine", "sawtooth", "square", "triangle"];
-
 function Sound() {
     const [cal, setCal] = useState("")
     const [activateDoppler, setActivateDoppler] = useState<boolean>(false)
-    const [soundMax, setSoundMax] = useState<number>(0)
     const [response, setResponse] = useState("")
-    const [oscillator, setOscillator] = useState(oscillatorValues[0]);
-    const [frequency, setFrequency] = useState(440);
+    const [frequency, setFrequency] = useState(440)
     const [cInputs, setcInputs] = useState({
-        f0: frequency,
+        f0: 440,
         f1: 350,
         v0: 72.2,
         v1: 0
     })
 
     const { start, stop } = useFrequency({
-        hz: cInputs.f0,
+        hz: frequency,
         type: "center",
         gain: 100 / 100,
-        oscillator: oscillator as "sine" | "square" | "sawtooth" | "triangle" | undefined,
+        oscillator: "sine",
     })
+
+    let interval: number | undefined;
 
     useEffect(() => {
         if (activateDoppler) {
             start()
-            setSoundMax(cInputs.f0)
             intervalFrecuency()
         } else {
-            stop()            
+            stop()
+            clearInterval(interval)          
         }
     }, [activateDoppler])
 
     const intervalFrecuency = () => {
-        
+        // increases or decreases the observed frequency every half second until it reaches the emitted frequency
+        interval = setInterval(() => {
+            console.log("hola")
+
+            if (frequency === cInputs.f1) {
+                clearInterval(interval)
+                return
+            }
+
+            if (frequency > cInputs.f1) {
+                setFrequency(frequency - 10)
+            } else {
+                setFrequency(frequency + 10)
+            }
+        }, 500)
     }
 
     const activateDopplerFun = () => {
