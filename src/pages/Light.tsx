@@ -3,7 +3,7 @@ import Form from "../components/Form"
 import Nav from "../components/Nav"
 import inputs from "../data/inputs"
 
-import { calcEmittedFrecuency, calcObservedFrecuency, calReceiverSpeed, calcEmitterSpeed } from "../utils"
+import { calcEmittedFrecuency, calcObservedFrecuency, calcReceiverSpeed, calcEmitterSpeed } from "../utils"
 
 function Light() {
     const [cal, setCal] = useState("")
@@ -56,7 +56,7 @@ function Light() {
                 setResponse(calcEmitterSpeed(f0, f1, v1).toString())
                 break;
             case "v1":
-                setResponse(calReceiverSpeed(f0, f1, v0).toString())
+                setResponse(calcReceiverSpeed(f0, f1, v0).toString())
                 break;
             default:
                 break;

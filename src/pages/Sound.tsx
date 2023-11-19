@@ -4,7 +4,7 @@ import Form from "../components/Form"
 import Nav from "../components/Nav"
 import inputs from "../data/inputs"
 
-import { calcEmittedFrecuency, calcObservedFrecuency, calReceiverSpeed, calcEmitterSpeed } from "../utils"
+import { calcEmittedFrecuency, calcObservedFrecuency, calcReceiverSpeed, calcEmitterSpeed } from "../utils"
 
 function Sound() {
     const [cal, setCal] = useState("")
@@ -14,7 +14,7 @@ function Sound() {
     const [cInputs, setcInputs] = useState({
         f0: 440,
         f1: 350,
-        v0: 72.2,
+        v0: 70.159090,
         v1: 0
     })
 
@@ -22,37 +22,39 @@ function Sound() {
         hz: frequency,
         type: "center",
         gain: 100 / 100,
-        oscillator: "sine",
+        oscillator: "sawtooth",
     })
 
-    let interval: number | undefined;
+    useEffect(() => {
+        console.log(frequency)
+    }, [frequency])
 
     useEffect(() => {
         if (activateDoppler) {
             start()
-            intervalFrecuency()
+            const t = 100 / cInputs.v0
+            const id = setInterval(() =>setFrequency(handleFrequency), t)
+
+            return () => {
+                clearInterval(id)
+                setActivateDoppler(false)
+                setFrequency(cInputs.f0)
+            }
         } else {
             stop()
-            clearInterval(interval)          
         }
     }, [activateDoppler])
 
-    const intervalFrecuency = () => {
-        // increases or decreases the observed frequency every half second until it reaches the emitted frequency
-        interval = setInterval(() => {
-            console.log("hola")
-
-            if (frequency === cInputs.f1) {
-                clearInterval(interval)
-                return
-            }
-
-            if (frequency > cInputs.f1) {
-                setFrequency(frequency - 10)
-            } else {
-                setFrequency(frequency + 10)
-            }
-        }, 500)
+    const handleFrequency = (prevFrequency: number) => {
+        if(prevFrequency > Math.floor(cInputs.f1)) {
+            return prevFrequency - 1
+        } else if(prevFrequency < Math.floor(cInputs.f1)) {
+            return prevFrequency + 1
+        }
+        else {
+            setActivateDoppler(false)
+            return cInputs.f0
+        }
     }
 
     const activateDopplerFun = () => {
@@ -66,55 +68,54 @@ function Sound() {
 
     const inputHandleChange = (e: any) => {
         setResponse("")
+        if (e.target.name === "f0") setFrequency(Number(e.target.value))
         setcInputs({
             ...cInputs,
-            [e.target.name]: e.target.value
+            [e.target.name]: Number(e.target.value)
         })
     }
 
     const handleClick = () => {
         if (cal === "") {
-            alert("Selecciona una opción")
+            alert("Selecciona la opción que quieres calcular.")
+            return
         }
 
         const { f0, f1, v0, v1 } = cInputs
 
         if (f0 <= 0 || f1 <= 0) {
-            alert("Los valores deben ser mayores a 0")
+            alert("Las frecuencias deben ser mayores a 0")
             return
         }
 
         switch (cal) {
             case "f0":
-                let response = calcObservedFrecuency(f1, v0, v1)
-                setResponse(response.toString())
+                setResponse(calcObservedFrecuency(f1, v0, v1).toString())
+                setFrequency(calcObservedFrecuency(f1, v0, v1))
                 setcInputs({
                     ...cInputs,
-                    f0: response
+                    f0: calcObservedFrecuency(f1, v0, v1)
                 })
                 break;
             case "f1":
-                response = calcEmittedFrecuency(f0, v0, v1)
-                setResponse(response.toString())
+                setResponse(calcEmittedFrecuency(f0, v0, v1).toString())
                 setcInputs({
                     ...cInputs,
-                    f1: response
+                    f1: calcEmittedFrecuency(f0, v0, v1)
                 })
                 break;
             case "v0":
-                response = calcEmitterSpeed(f0, f1, v1)
-                setResponse(response.toString())
+                setResponse(calcEmitterSpeed(f0, f1, v1).toString())
                 setcInputs({
                     ...cInputs,
-                    v0: response
+                    v0: calcEmitterSpeed(f0, f1, v1)
                 })
                 break;
             case "v1":
-                response = calReceiverSpeed(f0, f1, v0)
-                setResponse(response.toString())
+                setResponse(calcReceiverSpeed(f0, f1, v0).toString())
                 setcInputs({
                     ...cInputs,
-                    v1: response
+                    v1: calcReceiverSpeed(f0, f1, v0)
                 })
                 break;
             default:

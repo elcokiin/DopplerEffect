@@ -26,11 +26,13 @@ export const calcEmittedFrecuency = (f0: number, v0: number, v1: number) => {
 }
 
 export const calcEmitterSpeed = (f0: number, f1:number, v1: number) => {
-    const v_emitted = (f0/f1)*(soundSpeed - v1) - soundSpeed
+    const v_emitted = soundSpeed - (f1*(soundSpeed + v1))/(f0)
     return v_emitted
 }
 
-export const calReceiverSpeed = (f0: number, f1:number, v0: number) => {
-    const v_emitted = f0 * ((soundSpeed - v0) / f1) - soundSpeed
+export const calcReceiverSpeed = (f0: number, f1:number, v0: number) => {
+    const numerator = f0 * (soundSpeed - v0)
+    const denominator = f1
+    const v_emitted = (numerator/denominator) - soundSpeed
     return v_emitted
 }

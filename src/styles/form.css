@@ -44,6 +44,7 @@
 }
 
 .input-group__label {
+    width: 300px;
     padding: 0 0.5em;
     margin-bottom: 1em;
     text-transform: uppercase;

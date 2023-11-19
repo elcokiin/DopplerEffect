@@ -17,12 +17,12 @@ const inputs: inputsType[] = [
         content: [
             {
                 id: 'f0',
-                placeholder: 'Frecuencia Observada',
+                placeholder: 'Frecuencia Observada (Inicial)',
                 defaultValue: '440'
             },
             {
                 id: 'f1',
-                placeholder: 'Frecuencia Emitida',
+                placeholder: 'Frecuencia Emitida (Final)',
                 defaultValue: '350'
             }
         ]
@@ -33,8 +33,8 @@ const inputs: inputsType[] = [
         content: [
             {
                 id: 'v0',
-                placeholder: 'Velocidad del emisor',
-                defaultValue: '72.5'
+                placeholder: 'Velocidad del emisor (Velocidad)',
+                defaultValue: '70.15909090'
             },
             {
                 id: 'v1',
