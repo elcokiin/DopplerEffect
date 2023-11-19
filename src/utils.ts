@@ -1,7 +1,7 @@
 
 // method scientific notation for latex format, with units and accept negative numbers
-export const scientificNotation = (number: string, unit: string) => {
-    const numberString = number.toString();
+export const scientificNotation = (number: number, unit: string) => {
+    const numberString = number.toExponential(2)
     const numberArray = numberString.split('e');
     const numberScientific = numberArray[0];
     const numberExponent = numberArray[1];
@@ -35,4 +35,13 @@ export const calcReceiverSpeed = (f0: number, f1:number, v0: number) => {
     const denominator = f1
     const v_emitted = (numerator/denominator) - soundSpeed
     return v_emitted
+}
+
+const lightSpeed = 300000
+export const convertWavelenghtToHz = (wl: number) => {
+    return lightSpeed/wl
+}
+
+export const convertHzToWavelenght = (hz: number) => {
+    return lightSpeed/hz
 }

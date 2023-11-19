@@ -12,9 +12,6 @@ type propFormType = {
 }
 
 const Form = ({ inputs, handleChange, handleClick, response, cal }: propFormType) => {
-
-    response = Number(response).toExponential(2)
-
     return (
         <form className='form'>
             <div className='form_container'>
@@ -31,7 +28,7 @@ const Form = ({ inputs, handleChange, handleClick, response, cal }: propFormType
                                             {content.placeholder}
                                         </label>
                                         {
-                                            content.id === cal ? <span className="container-input_span">Resultado: <Equation equationText={scientificNotation(response, input.unit || "")} /> </span>
+                                            content.id === cal ? <span className="container-input_span">Resultado: <Equation equationText={scientificNotation(Number(response), input.unit || "")} /> </span>
                                                 : <input type='number' onChange={handleChange} name={content.id} id={content.id} className="input-group__input" defaultValue={content.defaultValue} />
                                         }
                                     </div>

@@ -10,19 +10,19 @@ export type inputsType = {
     content: contentType[]
 }
 
-const inputs: inputsType[] = [
+export const inputsSound: inputsType[] = [
     {
         title: 'Frecuencias ( Hz )',
         unit: 'Hz',
         content: [
             {
                 id: 'f0',
-                placeholder: 'Frecuencia Observada (Inicial)',
+                placeholder: 'Frecuencia Observada (Inicial*)',
                 defaultValue: '440'
             },
             {
                 id: 'f1',
-                placeholder: 'Frecuencia Emitida (Final)',
+                placeholder: 'Frecuencia Emitida (Final*)',
                 defaultValue: '350'
             }
         ]
@@ -33,7 +33,7 @@ const inputs: inputsType[] = [
         content: [
             {
                 id: 'v0',
-                placeholder: 'Velocidad del emisor (Velocidad)',
+                placeholder: 'Velocidad del emisor (Velocidad*)',
                 defaultValue: '70.15909090'
             },
             {
@@ -45,4 +45,37 @@ const inputs: inputsType[] = [
     }
 ]
 
-export default inputs
+export const inputsLight: inputsType[] = [
+    {
+        title: 'Longitudes de onda ( nm )',
+        unit: 'nm',
+        content: [
+            {
+                id: 'l0',
+                placeholder: 'Longitud de onda observada (Inicial*)',
+                defaultValue: '0.2'
+            },
+            {
+                id: 'l1',
+                placeholder: 'Longitud de onda emitida (Final*)',
+                defaultValue: '800'
+            }
+        ]
+    },
+    {
+        title: 'Velocidades ( m/s )',
+        unit: 'm/s',
+        content: [
+            {
+                id: 'v0',
+                placeholder: 'Velocidad del emisor',
+                defaultValue: '70'
+            },
+            {
+                id: 'v1',
+                placeholder: 'Velocidad del receptor',
+                defaultValue: '0'
+            }
+        ]
+    }
+]

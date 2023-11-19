@@ -2,7 +2,7 @@ import { SetStateAction, useEffect, useState } from "react"
 import { useFrequency } from "react-frequency";
 import Form from "../components/Form"
 import Nav from "../components/Nav"
-import inputs from "../data/inputs"
+import { inputsSound } from "../data/inputs"
 
 import { calcEmittedFrecuency, calcObservedFrecuency, calcReceiverSpeed, calcEmitterSpeed } from "../utils"
 
@@ -33,7 +33,7 @@ function Sound() {
         if (activateDoppler) {
             start()
             const t = 100 / cInputs.v0
-            const id = setInterval(() =>setFrequency(handleFrequency), t)
+            const id = setInterval(() => setFrequency(handleFrequency), t)
 
             return () => {
                 clearInterval(id)
@@ -46,9 +46,9 @@ function Sound() {
     }, [activateDoppler])
 
     const handleFrequency = (prevFrequency: number) => {
-        if(prevFrequency > Math.floor(cInputs.f1)) {
+        if (prevFrequency > Math.floor(cInputs.f1)) {
             return prevFrequency - 1
-        } else if(prevFrequency < Math.floor(cInputs.f1)) {
+        } else if (prevFrequency < Math.floor(cInputs.f1)) {
             return prevFrequency + 1
         }
         else {
@@ -132,14 +132,14 @@ function Sound() {
                         <select name="cal" id="calc" onChange={handleChange} className="select">
                             <option value="">¿Qué quieres calcular?</option>
                             {
-                                inputs.map((input) => {
+                                inputsSound.map((input) => {
                                     return input.content.map((content, i) => <option value={content.id} key={i}>{content.placeholder}</option>)
                                 }
                                 )
                             }
                         </select>
                     </div>
-                    <Form inputs={inputs} handleChange={inputHandleChange} handleClick={handleClick} response={response} cal={cal} />
+                    <Form inputs={inputsSound} handleChange={inputHandleChange} handleClick={handleClick} response={response} cal={cal} />
                 </div>
             </div>
         </div>
