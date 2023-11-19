@@ -1,12 +1,11 @@
 import Latex from 'react-latex'
 
 const Equation = ({equationText}: { equationText: string }) => {
-    const equation = `$$${equationText}$$`
-
+    equationText = `${equationText}`
     return (
-        <div className="inline">
+        <div className="italic">
             <Latex>
-                {equation}
+                {equationText}
             </Latex>
         </div>
     );

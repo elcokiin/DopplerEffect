@@ -5,7 +5,7 @@ import '../styles/form.css'
 
 type propFormType = {
     inputs: inputsType[],
-    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    handleChange: (e: any) => void,
     handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void,
     response: string,
     cal: string
@@ -31,8 +31,8 @@ const Form = ({ inputs, handleChange, handleClick, response, cal }: propFormType
                                             {content.placeholder}
                                         </label>
                                         {
-                                            content.id === cal ? <span className="container-input_span">Resultado: <Equation equationText={scientificNotation(response, "")} /></span>
-                                                : <input onChange={handleChange} name={content.id} id={content.id} className="input-group__input" defaultValue={content.defaultValue} />
+                                            content.id === cal ? <span className="container-input_span">Resultado: <Equation equationText={scientificNotation(response, input.unit || "")} /> </span>
+                                                : <input type='number' onChange={handleChange} name={content.id} id={content.id} className="input-group__input" defaultValue={content.defaultValue} />
                                         }
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@ const Form = ({ inputs, handleChange, handleClick, response, cal }: propFormType
                     </div>
                 })}
             </div>
-            <button className="form-button" onClick={handleClick}>
+            <button className="form-button" onClick={handleClick} type='button'>
                 Calcular
             </button>
         </form>

@@ -6,32 +6,35 @@ type contentType = {
 
 export type inputsType = {
     title: string
+    unit?: string
     content: contentType[]
 }
 
 const inputs: inputsType[] = [
     {
         title: 'Frecuencias ( Hz )',
+        unit: 'Hz',
         content: [
             {
                 id: 'f0',
                 placeholder: 'Frecuencia Observada',
-                defaultValue: '0'
+                defaultValue: '440'
             },
             {
                 id: 'f1',
                 placeholder: 'Frecuencia Emitida',
-                defaultValue: '0'
+                defaultValue: '350'
             }
         ]
     },
     {
         title: 'Velocidades ( m/s )',
+        unit: 'm/s',
         content: [
             {
                 id: 'v0',
                 placeholder: 'Velocidad del emisor',
-                defaultValue: '0'
+                defaultValue: '72.5'
             },
             {
                 id: 'v1',
